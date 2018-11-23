@@ -12,7 +12,8 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let networker = NetworkingManager()
+        networker.fetchLessons()
         
     }
 
