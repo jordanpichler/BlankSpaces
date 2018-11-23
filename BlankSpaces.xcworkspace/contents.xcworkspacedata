@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/jordan/Documents/iOS/BlankSpaces/BlankSpaces/ServerResponse.swift">
+   </FileRef>
+   <FileRef
       location = "group:BlankSpaces.xcodeproj">
    </FileRef>
    <FileRef
