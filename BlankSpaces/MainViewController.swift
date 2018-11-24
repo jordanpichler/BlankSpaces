@@ -13,8 +13,14 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let networker = NetworkingManager()
-        networker.fetchLessons()
-        
+        networker.fetchLessons(completion: printLessons)
     }
-
+    
+    func printLessons(lessons: [Lesson]) {
+        if lessons.isEmpty { print("FML") }
+        
+        for l in lessons {
+            print("We got lesson \(l.id) here.")
+        }
+    }
 }
