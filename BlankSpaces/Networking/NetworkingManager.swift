@@ -27,6 +27,7 @@ class NetworkingManager {
             decodedResult.lessons.forEach {
                 lessons.append(Lesson(rawLesson: $0))
             }
+            
             completion(lessons)
         }
     }
