@@ -1,6 +1,6 @@
 //
 //  LessonViewModel.swift
-//  BlankSpaces 
+//  BlankSpaces
 //
 //  Created by Jordan Pichler on 24/11/2018.
 //
@@ -39,6 +39,4 @@ class LessonViewModel {
         
         return fullText
     }
-    
-   
 }
