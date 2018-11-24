@@ -36,7 +36,6 @@ class LessonViewModel {
             
             fullText.append(attributedString)
         }
-        
         return fullText
     }
 }
