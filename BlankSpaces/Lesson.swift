@@ -18,10 +18,6 @@ struct Lesson: Decodable {
     var startIndex: Int?
     var endIndex: Int?
     
-    var needsInput: Bool {
-        return startIndex != nil && endIndex != nil
-    }
-    
     // MARK: - Initializers -
     
     init(id: Int, content: [LessonContent], startIndex: Int? = nil, endIndex: Int? = nil) {
