@@ -2,6 +2,8 @@
 //  UIView+ConstrainVisualFormat.swift
 //  BlankSpaces
 //
+//  Praise https://blog.flashgen.com/2016/10/auto-layout-visual-format-language-helpers/
+//
 //  Created by Jordan Pichler on 20/06/2018.
 //  Copyright © 2018 Jordan A. Pichler. All rights reserved.
 //
