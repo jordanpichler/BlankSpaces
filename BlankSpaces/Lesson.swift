@@ -50,6 +50,9 @@ struct Lesson: Decodable {
         
         var color: String
         var text: String
+        var uicolor: UIColor {
+            return UIColor(hexString: color)
+        }
         
         init(color: String, text: String) {
             self.color = color
