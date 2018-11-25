@@ -15,13 +15,13 @@ class WelcomeViewController: UIViewController {
     let startButton: UIButton = {
         let button = UIButton()
         button.setBackgroundColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), for: .normal)
-        button.setBackgroundColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), for: .selected)
+        button.setBackgroundColor(#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), for: .selected)
         button.setBackgroundColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 0.5018193493), for: .highlighted)
         button.setBackgroundColor(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), for: .disabled)
-        button.layer.cornerRadius = 15
         button.setTitle("Get started!", for: .normal)
+        button.setTitle("Try again", for: .selected)
         button.setTitle("Loading... ⏳", for: .disabled)
-        button.setTitle("✅", for: .selected)
+        button.layer.cornerRadius = 15
         return button
     }()
 
@@ -47,13 +47,13 @@ class WelcomeViewController: UIViewController {
         
         // Set up start Button
         startButton.addTarget(for: .touchUpInside) { sender in
+            // Show loading state of button and disable from user
+            sender.isSelected = false
             sender.isEnabled = false
             sender.isUserInteractionEnabled = false
 
             let networker = NetworkingManager()
             networker.fetchLessons(completion: self.processFetchedLessons)
-//            let vc = LessonViewController()
-//            self.present(vc, animated: true, completion: nil)
         }
     }
     
@@ -73,17 +73,20 @@ class WelcomeViewController: UIViewController {
     }
     
     func processFetchedLessons(lessons: [Lesson]) {
-        if lessons.isEmpty { print("FML"); return }
+        // Reenable button for user
+        startButton.isUserInteractionEnabled = true
+        startButton.isEnabled = true
+
+        if lessons.isEmpty {
+            // Set error state on button
+            startButton.isSelected = true
+            return
+        }
+        
         lessonLibrary.removeAll()
         lessonLibrary.append(contentsOf: lessons)
         
-        startButton.isSelected = true
-        startButton.isEnabled = true
-        
-        // Wait a second...
-        
-        let vc = LessonViewController(lesson: LessonViewModel(with: lessonLibrary[2]))
-        present(vc, animated: true, completion: nil)
+        presentLessons()
     }
     
     func printLessons(lessons: [Lesson]) {
@@ -92,5 +95,12 @@ class WelcomeViewController: UIViewController {
         for l in lessons {
             print("We got lesson \(l.id) here.")
         }
+    }
+    
+    func presentLessons() {
+        // Wait a second...
+        
+        let vc = LessonViewController(lesson: LessonViewModel(with: lessonLibrary[2]))
+        present(vc, animated: true, completion: nil)
     }
 }

@@ -17,17 +17,14 @@ class NetworkingManager {
     
     func fetchLessons(completion: @escaping CompletetionHandler)  {
         Alamofire.request(url).responseData { response in
-            guard let data = response.result.value,
-                let decodedResult = self.decodeLessons(from: data) else {
-                    return
-                }
-            
-            // Convert to Lesson array
             var lessons = [Lesson]()
-            decodedResult.lessons.forEach {
-                lessons.append(Lesson(rawLesson: $0))
-            }
-            
+            if let data = response.result.value,
+                let decodedResult = self.decodeLessons(from: data) {
+                    // Convert to Lesson array
+                    decodedResult.lessons.forEach {
+                        lessons.append(Lesson(rawLesson: $0))
+                    }
+                }
             completion(lessons)
         }
     }

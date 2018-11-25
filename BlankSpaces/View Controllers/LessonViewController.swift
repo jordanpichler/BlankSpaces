@@ -19,6 +19,7 @@ class LessonViewController: UIViewController {
         button.setTitle("Next", for: .normal)
         return button
     }()
+    
     let codeView = CodeView()
     
     var lessonViewModel: LessonViewModel!

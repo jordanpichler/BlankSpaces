@@ -117,11 +117,10 @@
 			isa = PBXGroup;
 			children = (
 				1714DE2B21A5B49C00BC5891 /* AppDelegate.swift */,
-				17AA9E2B21A6EF9300D497D5 /* WelcomeViewController.swift */,
-				1790B55621AAC13500C66079 /* LessonViewController.swift */,
 				1790B55821AAC76A00C66079 /* CodeView.swift */,
 				17AA9E2F21A6F23700D497D5 /* Lesson.swift */,
 				17AA9E3921A9E5F400D497D5 /* LessonViewModel.swift */,
+				1790B55C21AB00A400C66079 /* View Controllers */,
 				17AA9E3321A8299700D497D5 /* Networking */,
 				17AA9E2A21A6E97D00D497D5 /* Resources */,
 				17AA9E3621A9A06D00D497D5 /* Utils */,
@@ -137,6 +136,15 @@
 				1714DE4221A5B49E00BC5891 /* Info.plist */,
 			);
 			path = BlankSpacesTests;
+			sourceTree = "<group>";
+		};
+		1790B55C21AB00A400C66079 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				17AA9E2B21A6EF9300D497D5 /* WelcomeViewController.swift */,
+				1790B55621AAC13500C66079 /* LessonViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 		17AA9E2A21A6E97D00D497D5 /* Resources */ = {
