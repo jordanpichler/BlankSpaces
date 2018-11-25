@@ -17,10 +17,10 @@ class CodeView: UIView {
     
     init() {
         super.init(frame: CGRect.zero)
-        self.backgroundColor = #colorLiteral(red: 0.2825384149, green: 0.2893673017, blue: 0.3366744028, alpha: 1)
+        self.backgroundColor = #colorLiteral(red: 0.3939092385, green: 0.4034299317, blue: 0.4693845178, alpha: 1)
         code.text = "Oh my god! Look at that ⬜️⬜️⬜️⬜️!"
         code.textColor = .white
-        code.font = UIFont(name: "Courier New", size: 14)
+        code.font = UIFont(name: "Courier New", size: 17)
     }
 
     required init?(coder aDecoder: NSCoder) {
