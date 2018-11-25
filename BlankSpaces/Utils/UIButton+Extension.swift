@@ -53,13 +53,14 @@ extension UIButton {
     ///     - state: Control states which color should be applied to
     func setBackgroundColor(_ color: UIColor, for state: UIControl.State) {
         self.setBackgroundImage(image(withColor: color), for: state)
+        self.clipsToBounds = true 
     }
     
     /// Set a Swifty closure for occured control events!
     /// - Parameters:
     ///     - closure: Action to execute upon occurence of control event
     ///     - controlEvents: Control events which should execute the closure
-    func add(target closure: @escaping (UIButton) -> Void, for controlEvents: UIControl.Event) {
+    func addTarget(for controlEvents: UIControl.Event, with closure: @escaping (_: UIButton) -> Void) {
         let closureSelector = ClosureSelector<UIButton>(withClosure: closure)
         objc_setAssociatedObject(self, &handle, closureSelector, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         self.addTarget(closureSelector, action: closureSelector.selector, for: controlEvents)
