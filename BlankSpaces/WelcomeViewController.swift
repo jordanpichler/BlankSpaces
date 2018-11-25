@@ -40,8 +40,30 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set up start Button
+        startButton.addTarget(for: .touchUpInside) { sender in
+            sender.isSelected = true
+            sender.isUserInteractionEnabled = false
+        }
+        
         let networker = NetworkingManager()
         networker.fetchLessons(completion: printLessons)
+    }
+    
+    override func loadView() {
+        view = UIView()
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        view.addSubview(startButton)
+        view.addConstraintsWithFormat(format: "H:|-[v0]-|", views: startButton)
+        view.addConstraintsWithFormat(format: "V:[v0(70)]-25-|", views: startButton)
+        
+        view.addSubview(introHeader)
+        view.addSubview(introText)
+        view.addConstraintsWithFormat(format: "H:|-[v0]-|", views: introHeader)
+        view.addConstraintsWithFormat(format: "H:|-[v0]-|", views: introText)
+        view.addConstraintsWithFormat(format: "V:|-100-[v0]-[v1]-(>=25)-|", views: introHeader, introText)
     }
     
     func printLessons(lessons: [Lesson]) {
