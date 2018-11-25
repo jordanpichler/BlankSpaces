@@ -45,6 +45,8 @@ class WelcomeViewController: UIViewController {
         startButton.addTarget(for: .touchUpInside) { sender in
             sender.isSelected = true
             sender.isUserInteractionEnabled = false
+            let vc = LessonViewController()
+            self.present(vc, animated: true, completion: nil)
         }
         
         let networker = NetworkingManager()
