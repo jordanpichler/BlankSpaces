@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class LessonViewModel {
     
@@ -30,9 +31,10 @@ class LessonViewModel {
         
         // Iterate over content and append all text snippets
         for textSection in lesson.content {
-            let colorAttribute = [NSAttributedString.Key.foregroundColor: textSection.uicolor]
+            let attributes = [NSAttributedString.Key.foregroundColor: textSection.uicolor,
+                              NSAttributedString.Key.font: UIFont(name: "Courier New", size: 14)!]
             let attributedString = NSAttributedString(string: textSection.text,
-                                                      attributes: colorAttribute)
+                                                      attributes: attributes)
             
             fullText.append(attributedString)
         }
