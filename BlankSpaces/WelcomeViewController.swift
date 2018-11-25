@@ -15,11 +15,13 @@ class WelcomeViewController: UIViewController {
     let startButton: UIButton = {
         let button = UIButton()
         button.setBackgroundColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), for: .normal)
+        button.setBackgroundColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), for: .selected)
         button.setBackgroundColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 0.5018193493), for: .highlighted)
-        button.setBackgroundColor(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), for: .selected)
+        button.setBackgroundColor(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), for: .disabled)
         button.layer.cornerRadius = 15
         button.setTitle("Get started!", for: .normal)
-        button.setTitle("Loading... ⏳", for: .selected)
+        button.setTitle("Loading... ⏳", for: .disabled)
+        button.setTitle("✅", for: .selected)
         return button
     }()
 
@@ -38,19 +40,21 @@ class WelcomeViewController: UIViewController {
         return label
     }()
     
+    var lessonLibrary = [Lesson]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set up start Button
         startButton.addTarget(for: .touchUpInside) { sender in
-            sender.isSelected = true
+            sender.isEnabled = false
             sender.isUserInteractionEnabled = false
-            let vc = LessonViewController()
-            self.present(vc, animated: true, completion: nil)
+
+            let networker = NetworkingManager()
+            networker.fetchLessons(completion: self.processFetchedLessons)
+//            let vc = LessonViewController()
+//            self.present(vc, animated: true, completion: nil)
         }
-        
-        let networker = NetworkingManager()
-        networker.fetchLessons(completion: printLessons)
     }
     
     override func loadView() {
@@ -66,6 +70,20 @@ class WelcomeViewController: UIViewController {
         view.addConstraintsWithFormat(format: "H:|-[v0]-|", views: introHeader)
         view.addConstraintsWithFormat(format: "H:|-[v0]-|", views: introText)
         view.addConstraintsWithFormat(format: "V:|-100-[v0]-[v1]-(>=25)-|", views: introHeader, introText)
+    }
+    
+    func processFetchedLessons(lessons: [Lesson]) {
+        if lessons.isEmpty { print("FML"); return }
+        lessonLibrary.removeAll()
+        lessonLibrary.append(contentsOf: lessons)
+        
+        startButton.isSelected = true
+        startButton.isEnabled = true
+        
+        // Wait a second...
+        
+        let vc = LessonViewController(lesson: LessonViewModel(with: lessonLibrary[2]))
+        present(vc, animated: true, completion: nil)
     }
     
     func printLessons(lessons: [Lesson]) {
