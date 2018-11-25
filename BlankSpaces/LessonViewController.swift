@@ -25,7 +25,7 @@ class LessonViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        codeView.setCode(text: lessonViewModel.formattedText()) // TODO: implement
+        codeView.setCode(text: lessonViewModel.puzzledText())
         
         if lessonViewModel.needsInput {
             nextButton.isSelected = true
