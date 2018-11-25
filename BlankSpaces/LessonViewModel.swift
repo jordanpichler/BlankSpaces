@@ -25,6 +25,22 @@ class LessonViewModel {
         return lesson.startIndex != nil && lesson.endIndex != nil
     }
     
+    /// Returns entire lesson content text as a plain string
+    var text: String {
+        var string = ""
+        lesson.content.forEach { string += $0.text }
+        return string
+    }
+    
+    /// Returns the solution string the user needs to input
+    var solution: String {
+        if needsInput {
+            return text[lesson.startIndex!..<lesson.endIndex!]
+        }
+        
+        return ""
+    }
+    
     /// Returns text from content fully visible and colored.
     func formattedText() -> NSMutableAttributedString {
         let fullText = NSMutableAttributedString()
@@ -43,29 +59,15 @@ class LessonViewModel {
     
     /// Returns text from content formated and with white boxes if input is required.
     func puzzledText() -> NSMutableAttributedString {
-        let fullText = NSMutableAttributedString()
-        
-        // Iterate over content and append all text snippets
-        for textSection in lesson.content {
-            let attributes = [NSAttributedString.Key.foregroundColor: textSection.uicolor,
-                              NSAttributedString.Key.font: UIFont(name: "CourierNewPS-BoldMT", size: 17)!]
-            let attributedString = NSAttributedString(string: textSection.text,
-                                                      attributes: attributes)
-            
-            fullText.append(attributedString)
-        }
+        let fullText = formattedText()
 
         if needsInput {
             let length = (lesson.endIndex! - lesson.startIndex!)
             let range = NSRange(location: lesson.startIndex!,
                                 length: length)
-            let solution = fullText.string[lesson.startIndex!..<lesson.endIndex!]
             fullText.replaceCharacters(in: range, with: String(repeating: "⬜️", count: length))
-            
-            print("\(lesson.startIndex!) and \(lesson.endIndex!)")
         }
         
         return fullText
     }
-    
 }
