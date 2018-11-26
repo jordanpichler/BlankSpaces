@@ -75,5 +75,4 @@ class LessonViewController: UIViewController {
         lessonNumber += 1
         currentLesson = lessonLibrary[lessonNumber]
     }
-    
 }

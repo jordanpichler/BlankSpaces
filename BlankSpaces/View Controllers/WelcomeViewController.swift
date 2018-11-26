@@ -93,6 +93,7 @@ class WelcomeViewController: UIViewController {
     }
     
     func presentLessons(_ lessons: [Lesson]) {
-        
+        guard let lessonViewController = LessonViewController(lessons: lessons) else { return }
+        present(lessonViewController, animated: true, completion: nil)
     }
 }
