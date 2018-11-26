@@ -22,13 +22,20 @@ class LessonViewController: UIViewController {
     
     let codeView = CodeView()
     
-    var lessonViewModel: LessonViewModel!
+    private var lessonLibrary: [LessonViewModel]!
+    var currentLesson: LessonViewModel!
+    private var lessonNumber = 0
+    var userInput = ""
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        codeView.setCode(text: lessonViewModel.puzzledText())
+        guard let firstLesson = lessonLibrary.first else { return }
         
-        if lessonViewModel.needsInput {
+        currentLesson = firstLesson
+        codeView.setCode(text: currentLesson.puzzledText())
+        
+        if currentLesson.needsInput {
             nextButton.isSelected = true
             nextButton.isUserInteractionEnabled = false
         }
@@ -46,8 +53,27 @@ class LessonViewController: UIViewController {
         view.addConstraintsWithFormat(format: "V:|-100-[v0]-(>=25)-[v1(70)]-25-|", views: codeView, nextButton)
     }
     
-    convenience init(lesson: LessonViewModel) {
+    convenience init?(lessons: [Lesson]) {
+        if lessons.isEmpty { return nil }
+        
         self.init()
-        lessonViewModel = lesson
+        lessonLibrary = [LessonViewModel]()
+        
+        for lesson in lessons {
+            lessonLibrary.append(LessonViewModel(with: lesson))
+        }
     }
+    
+    func checkSolution() -> Bool {
+        if currentLesson.needsInput {
+            return userInput == currentLesson.solution
+        }
+        return true
+    }
+    
+    func showNextLesson() {
+        lessonNumber += 1
+        currentLesson = lessonLibrary[lessonNumber]
+    }
+    
 }

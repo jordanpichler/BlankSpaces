@@ -40,8 +40,6 @@ class WelcomeViewController: UIViewController {
         return label
     }()
     
-    var lessonLibrary = [Lesson]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,10 +81,7 @@ class WelcomeViewController: UIViewController {
             return
         }
         
-        lessonLibrary.removeAll()
-        lessonLibrary.append(contentsOf: lessons)
-        
-        presentLessons()
+        presentLessons(lessons)
     }
     
     func printLessons(lessons: [Lesson]) {
@@ -97,10 +92,7 @@ class WelcomeViewController: UIViewController {
         }
     }
     
-    func presentLessons() {
-        // Wait a second...
+    func presentLessons(_ lessons: [Lesson]) {
         
-        let vc = LessonViewController(lesson: LessonViewModel(with: lessonLibrary[2]))
-        present(vc, animated: true, completion: nil)
     }
 }
