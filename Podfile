@@ -5,6 +5,7 @@ target 'BlankSpaces' do
 
   pod 'Alamofire'
   pod 'RxSwift'
+  pod 'RxCocoa'
   
   target 'BlankSpacesTests' do
     inherit! :search_paths
