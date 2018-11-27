@@ -16,6 +16,7 @@
 		1790B55721AAC13500C66079 /* LessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790B55621AAC13500C66079 /* LessonViewController.swift */; };
 		1790B55921AAC76A00C66079 /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790B55821AAC76A00C66079 /* CodeView.swift */; };
 		1790B55B21AAFA2900C66079 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790B55A21AAFA2900C66079 /* String+Extension.swift */; };
+		1790B56021AD9ECE00C66079 /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790B55F21AD9ECE00C66079 /* CompletionViewController.swift */; };
 		17AA9E2C21A6EF9300D497D5 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AA9E2B21A6EF9300D497D5 /* WelcomeViewController.swift */; };
 		17AA9E3021A6F23700D497D5 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AA9E2F21A6F23700D497D5 /* Lesson.swift */; };
 		17AA9E3221A8296D00D497D5 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AA9E3121A8296D00D497D5 /* ServerResponse.swift */; };
@@ -50,6 +51,7 @@
 		1790B55621AAC13500C66079 /* LessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonViewController.swift; sourceTree = "<group>"; };
 		1790B55821AAC76A00C66079 /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
 		1790B55A21AAFA2900C66079 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		1790B55F21AD9ECE00C66079 /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
 		17AA9E2B21A6EF9300D497D5 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		17AA9E2F21A6F23700D497D5 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
 		17AA9E3121A8296D00D497D5 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ServerResponse.swift; path = /Users/jordan/Documents/iOS/BlankSpaces/BlankSpaces/ServerResponse.swift; sourceTree = "<absolute>"; };
@@ -143,6 +145,7 @@
 			children = (
 				17AA9E2B21A6EF9300D497D5 /* WelcomeViewController.swift */,
 				1790B55621AAC13500C66079 /* LessonViewController.swift */,
+				1790B55F21AD9ECE00C66079 /* CompletionViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				17AA9E3A21A9E5F400D497D5 /* LessonViewModel.swift in Sources */,
 				17AA9E3021A6F23700D497D5 /* Lesson.swift in Sources */,
 				17AA9E3221A8296D00D497D5 /* ServerResponse.swift in Sources */,
+				1790B56021AD9ECE00C66079 /* CompletionViewController.swift in Sources */,
 				17AA9E2C21A6EF9300D497D5 /* WelcomeViewController.swift in Sources */,
 				1790B55B21AAFA2900C66079 /* String+Extension.swift in Sources */,
 				17AA9E3821A9A0BC00D497D5 /* UIView+ConstrainVisualFormat.swift in Sources */,

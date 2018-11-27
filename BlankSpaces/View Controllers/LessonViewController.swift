@@ -10,6 +10,8 @@ import UIKit
 
 class LessonViewController: UIViewController {
 
+    //MARK: - UI Elements -
+    
     let nextButton: UIButton = {
         let button = UIButton()
         button.setBackgroundColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), for: .normal)
@@ -23,6 +25,7 @@ class LessonViewController: UIViewController {
     
     let codeView = CodeView()
     
+    // MARK: - Properties -
     private var lessonLibrary: [LessonViewModel]!
     private var currentLesson: LessonViewModel! {
         didSet {
@@ -31,6 +34,8 @@ class LessonViewController: UIViewController {
         }
     }
     private var lessonNumber = 0
+    
+    // MARK: - Initialization -
     
     convenience init?(lessons: [Lesson]) {
         if lessons.isEmpty { return nil }
@@ -68,9 +73,16 @@ class LessonViewController: UIViewController {
         view.addConstraintsWithFormat(format: "V:|-100-[v0]-(>=25)-[v1(70)]-25-|", views: codeView, nextButton)
     }
     
+    // MARK: - Helpers -
+    
     func showNextLesson() {
         lessonNumber += 1
-        currentLesson = lessonLibrary[lessonNumber]
+        if lessonNumber < lessonLibrary.count {
+            currentLesson = lessonLibrary[lessonNumber]
+        } else {
+            let doneViewController = CompletionViewController()
+            present(doneViewController, animated: false)
+        }
     }
     
     func solveLesson() {
