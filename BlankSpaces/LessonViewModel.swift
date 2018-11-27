@@ -11,7 +11,7 @@ import UIKit
 
 class LessonViewModel {
     
-    let lesson: Lesson
+    var lesson: Lesson
     
     // MARK: - Initializer -
     

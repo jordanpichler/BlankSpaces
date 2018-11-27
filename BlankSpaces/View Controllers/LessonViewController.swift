@@ -7,37 +7,67 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class LessonViewController: UIViewController {
 
+    // MARK: - UI Properties -
+    
     let nextButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundColor(#colorLiteral(red: 0.3949374766, green: 0.733126826, blue: 0.8587999683, alpha: 1), for: .normal)
-        button.setBackgroundColor(#colorLiteral(red: 0.3949374766, green: 0.733126826, blue: 0.8587999683, alpha: 0.5), for: .highlighted)
-        button.setBackgroundColor(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), for: .selected)
+        button.setBackgroundColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), for: .normal)
+        button.setBackgroundColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 0.5018193493), for: .highlighted)
+        button.setBackgroundColor(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), for: .disabled)
+        button.setTitle("Great job! Continue", for: .normal)
+        button.setTitle("Continue", for: .disabled)
         button.layer.cornerRadius = 15
-        button.setTitle("Next", for: .normal)
         return button
     }()
     
     let codeView = CodeView()
     
+    // MARK: - Properties -
+    
     private var lessonLibrary: [LessonViewModel]!
-    var currentLesson: LessonViewModel!
-    private var lessonNumber = 0
-    var userInput = ""
-
+    var currentLesson: BehaviorRelay<LessonViewModel>!
+    var lessonNumber = 0
+    private var userInput = BehaviorRelay<String>(value: "")
+    private let bag = DisposeBag()
+    
+    // MARK: - Functions -
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set first lesson
         guard let firstLesson = lessonLibrary.first else { return }
+        currentLesson = BehaviorRelay<LessonViewModel>(value: firstLesson)
         
-        currentLesson = firstLesson
-        codeView.setCode(text: currentLesson.puzzledText())
+        // Subscribe in order to update codeView for following lessons
+        currentLesson
+            .subscribe(onNext: { lesson in
+                self.codeView.setCode(text: lesson.formatText(puzzled: true))
+            }).disposed(by: bag)
         
-        if currentLesson.needsInput {
-            nextButton.isSelected = true
-            nextButton.isUserInteractionEnabled = false
+        // Observe userinput
+//        codeView.codeTextField.rx.textInput.text.asObservable().subscribe(onNext: {string in
+//            //self.checkSolution(input: string!)
+//        }).disposed(by: bag)
+//
+        // Create flag checking if input is correct
+        let isSolved = codeView.codeTextField.rx.textInput.text
+            .map { $0 == self.currentLesson.value.text }
+             // without this map would be executed once for each binding, rx is stateless by default
+        
+        // Bind flag to button
+        isSolved
+            .bind(to: nextButton.rx.isEnabled)
+            .disposed(by: bag)
+        
+        // Add Button
+        nextButton.addTarget(for: .touchUpInside) { _ in
+            self.showNextLesson()
         }
     }
     
@@ -64,15 +94,18 @@ class LessonViewController: UIViewController {
         }
     }
     
-    func checkSolution() -> Bool {
-        if currentLesson.needsInput {
-            return userInput == currentLesson.solution
+    // MARK: -
+    
+    func checkSolution(input: String) {
+        if input == currentLesson.value.text {
+            nextButton.isEnabled = true
+        } else {
+            nextButton.isEnabled = false
         }
-        return true
     }
     
     func showNextLesson() {
         lessonNumber += 1
-        currentLesson = lessonLibrary[lessonNumber]
+        currentLesson.accept(lessonLibrary[lessonNumber])
     }
 }
