@@ -63,4 +63,8 @@ class LessonViewModel {
         
         return fullText
     }
+    
+    func checkSolution(input: String) -> Bool {
+        return input == text
+    }
 }

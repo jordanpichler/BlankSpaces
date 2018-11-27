@@ -12,33 +12,48 @@ class LessonViewController: UIViewController {
 
     let nextButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundColor(#colorLiteral(red: 0.3949374766, green: 0.733126826, blue: 0.8587999683, alpha: 1), for: .normal)
-        button.setBackgroundColor(#colorLiteral(red: 0.3949374766, green: 0.733126826, blue: 0.8587999683, alpha: 0.5), for: .highlighted)
-        button.setBackgroundColor(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), for: .selected)
+        button.setBackgroundColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), for: .normal)
+        button.setBackgroundColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 0.5), for: .highlighted)
+        button.setBackgroundColor(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), for: .disabled)
         button.layer.cornerRadius = 15
-        button.setTitle("Next", for: .normal)
+        button.setTitle("Great job! Next", for: .normal)
+        button.setTitle("Next", for: .disabled)
         return button
     }()
     
     let codeView = CodeView()
     
     private var lessonLibrary: [LessonViewModel]!
-    var currentLesson: LessonViewModel!
+    private var currentLesson: LessonViewModel! {
+        didSet {
+            codeView.setCode(text: currentLesson.formatText(puzzled: true))
+            toggleButton(enabled: !currentLesson.needsInput)
+        }
+    }
     private var lessonNumber = 0
-    var userInput = ""
-
+    
+    convenience init?(lessons: [Lesson]) {
+        if lessons.isEmpty { return nil }
+        
+        self.init()
+        lessonLibrary = [LessonViewModel]()
+        lessons.forEach { lessonLibrary.append(LessonViewModel(with: $0)) }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set first lesson, updates the view
         guard let firstLesson = lessonLibrary.first else { return }
-        
         currentLesson = firstLesson
-        codeView.setCode(text: currentLesson.formatText(puzzled: true))
         
-        if currentLesson.needsInput {
-            nextButton.isSelected = true
-            nextButton.isUserInteractionEnabled = false
+        // Next lesson on Button tap
+        nextButton.addTarget(for: .touchUpInside) {button in
+            self.showNextLesson()
         }
+        
+        // Listen for changes in text field and check if solved
+        codeView.delegate = self
     }
     
     override func loadView() {
@@ -53,26 +68,29 @@ class LessonViewController: UIViewController {
         view.addConstraintsWithFormat(format: "V:|-100-[v0]-(>=25)-[v1(70)]-25-|", views: codeView, nextButton)
     }
     
-    convenience init?(lessons: [Lesson]) {
-        if lessons.isEmpty { return nil }
-        
-        self.init()
-        lessonLibrary = [LessonViewModel]()
-        
-        for lesson in lessons {
-            lessonLibrary.append(LessonViewModel(with: lesson))
-        }
-    }
-    
-    func checkSolution() -> Bool {
-        if currentLesson.needsInput {
-            return userInput == currentLesson.solution
-        }
-        return true
-    }
-    
     func showNextLesson() {
         lessonNumber += 1
         currentLesson = lessonLibrary[lessonNumber]
+    }
+    
+    func solveLesson() {
+        toggleButton(enabled: true)
+        codeView.setCode(text: currentLesson.formatText(puzzled: false))
+        codeView.hideKeyboard()
+    }
+    
+    private func toggleButton(enabled: Bool) {
+        nextButton.isEnabled = enabled
+        nextButton.isUserInteractionEnabled = enabled
+    }
+    
+}
+
+// MARK: - CodeViewDelegate
+
+extension LessonViewController: CodeViewDelegate {
+    func textDidChange(to text: String) {
+        let isSolved = currentLesson.checkSolution(input: text)
+        isSolved ? solveLesson() : toggleButton(enabled: false)
     }
 }
