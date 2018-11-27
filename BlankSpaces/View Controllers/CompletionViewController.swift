@@ -29,6 +29,9 @@ class CompletionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let realm = RealmManager()
+        print(realm.retrieveAll())
+        
         button.addTarget(for: .touchUpInside) { [unowned self] _ in
             self.dismiss(animated: false)
             self.presentingViewController?.dismiss(animated: false)
