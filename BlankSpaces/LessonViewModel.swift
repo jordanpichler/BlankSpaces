@@ -6,7 +6,6 @@
 //  Copyright © 2018 Jordan A. Pichler. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class LessonViewModel {
@@ -35,15 +34,16 @@ class LessonViewModel {
     
     /// Returns the solution string the user needs to input
     var solution: String {
-        if needsInput {
-            return text[lesson.startIndex!..<lesson.endIndex!]
-        }
-        
-        return ""
+        return needsInput ? text[lesson.startIndex!..<lesson.endIndex!] : ""
+    }
+    
+    var inputRange: NSRange? {
+        return needsInput ? NSRange(location: lesson.startIndex!,
+                                    length: solution.count) : nil
     }
     
     /// Returns text from content fully visible and colored.
-    func formattedText() -> NSMutableAttributedString {
+    func formatText(puzzled: Bool) -> NSAttributedString {
         let fullText = NSMutableAttributedString()
         
         // Iterate over content and append all text snippets
@@ -55,18 +55,10 @@ class LessonViewModel {
             
             fullText.append(attributedString)
         }
-        return fullText
-    }
-    
-    /// Returns text from content formated and with white boxes if input is required.
-    func puzzledText() -> NSMutableAttributedString {
-        let fullText = formattedText()
-
-        if needsInput {
-            let length = (lesson.endIndex! - lesson.startIndex!)
-            let range = NSRange(location: lesson.startIndex!,
-                                length: length)
-            fullText.replaceCharacters(in: range, with: String(repeating: "⬜️", count: length))
+        
+        if needsInput && puzzled {
+            fullText.replaceCharacters(in: inputRange!,
+                                       with: String(repeating: "⬜️", count: solution.count))
         }
         
         return fullText

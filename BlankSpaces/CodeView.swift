@@ -10,7 +10,7 @@ import UIKit
 
 class CodeView: UIView {
 
-    let code = UILabel()
+    let codeTextField = UITextField()
     var shouldSetupConstraints = true
     
     // MARK: - Initializers -
@@ -18,9 +18,9 @@ class CodeView: UIView {
     init() {
         super.init(frame: CGRect.zero)
         self.backgroundColor = #colorLiteral(red: 0.3939092385, green: 0.4034299317, blue: 0.4693845178, alpha: 1)
-        code.text = "Oh my god! Look at that ⬜️⬜️⬜️⬜️!"
-        code.textColor = .white
-        code.font = UIFont(name: "Courier New", size: 17)
+        codeTextField.text = "Oh my god! Look at that ⬜️⬜️⬜️⬜️!"
+        codeTextField.textColor = .white
+        codeTextField.font = UIFont(name: "Courier New", size: 17)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -31,9 +31,9 @@ class CodeView: UIView {
         if shouldSetupConstraints {
             shouldSetupConstraints = false
             
-            self.addSubview(code)
-            addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: code)
-            addConstraintsWithFormat(format: "V:|-25-[v0]-25-|", views: code)
+            self.addSubview(codeTextField)
+            addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: codeTextField)
+            addConstraintsWithFormat(format: "V:|-25-[v0]-25-|", views: codeTextField)
         }
         
         super.updateConstraints()
@@ -42,6 +42,6 @@ class CodeView: UIView {
     // MARK: - Interface -
     
     public func setCode(text: NSAttributedString) {
-        code.attributedText = text
+        codeTextField.attributedText = text
     }
 }
