@@ -17,6 +17,8 @@
 		1790B55921AAC76A00C66079 /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790B55821AAC76A00C66079 /* CodeView.swift */; };
 		1790B55B21AAFA2900C66079 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790B55A21AAFA2900C66079 /* String+Extension.swift */; };
 		1790B56021AD9ECE00C66079 /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790B55F21AD9ECE00C66079 /* CompletionViewController.swift */; };
+		1790B56421ADAA5300C66079 /* LessonCompletionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790B56321ADAA5300C66079 /* LessonCompletionEvent.swift */; };
+		1790B56621ADAF0400C66079 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790B56521ADAF0400C66079 /* RealmManager.swift */; };
 		17AA9E2C21A6EF9300D497D5 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AA9E2B21A6EF9300D497D5 /* WelcomeViewController.swift */; };
 		17AA9E3021A6F23700D497D5 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AA9E2F21A6F23700D497D5 /* Lesson.swift */; };
 		17AA9E3221A8296D00D497D5 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AA9E3121A8296D00D497D5 /* ServerResponse.swift */; };
@@ -52,6 +54,8 @@
 		1790B55821AAC76A00C66079 /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
 		1790B55A21AAFA2900C66079 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		1790B55F21AD9ECE00C66079 /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
+		1790B56321ADAA5300C66079 /* LessonCompletionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCompletionEvent.swift; sourceTree = "<group>"; };
+		1790B56521ADAF0400C66079 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		17AA9E2B21A6EF9300D497D5 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		17AA9E2F21A6F23700D497D5 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
 		17AA9E3121A8296D00D497D5 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ServerResponse.swift; path = /Users/jordan/Documents/iOS/BlankSpaces/BlankSpaces/ServerResponse.swift; sourceTree = "<absolute>"; };
@@ -119,9 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				1714DE2B21A5B49C00BC5891 /* AppDelegate.swift */,
-				1790B55821AAC76A00C66079 /* CodeView.swift */,
-				17AA9E2F21A6F23700D497D5 /* Lesson.swift */,
-				17AA9E3921A9E5F400D497D5 /* LessonViewModel.swift */,
+				1790B56121ADA90200C66079 /* Model */,
+				1790B56221ADA91800C66079 /* View */,
 				1790B55C21AB00A400C66079 /* View Controllers */,
 				17AA9E3321A8299700D497D5 /* Networking */,
 				17AA9E2A21A6E97D00D497D5 /* Resources */,
@@ -148,6 +151,25 @@
 				1790B55F21AD9ECE00C66079 /* CompletionViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		1790B56121ADA90200C66079 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				17AA9E2F21A6F23700D497D5 /* Lesson.swift */,
+				1790B56321ADAA5300C66079 /* LessonCompletionEvent.swift */,
+				17AA9E3921A9E5F400D497D5 /* LessonViewModel.swift */,
+				1790B56521ADAF0400C66079 /* RealmManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1790B56221ADA91800C66079 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1790B55821AAC76A00C66079 /* CodeView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		17AA9E2A21A6E97D00D497D5 /* Resources */ = {
@@ -315,14 +337,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-BlankSpaces/Pods-BlankSpaces-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -356,12 +378,14 @@
 			files = (
 				17AA9E3A21A9E5F400D497D5 /* LessonViewModel.swift in Sources */,
 				17AA9E3021A6F23700D497D5 /* Lesson.swift in Sources */,
+				1790B56621ADAF0400C66079 /* RealmManager.swift in Sources */,
 				17AA9E3221A8296D00D497D5 /* ServerResponse.swift in Sources */,
 				1790B56021AD9ECE00C66079 /* CompletionViewController.swift in Sources */,
 				17AA9E2C21A6EF9300D497D5 /* WelcomeViewController.swift in Sources */,
 				1790B55B21AAFA2900C66079 /* String+Extension.swift in Sources */,
 				17AA9E3821A9A0BC00D497D5 /* UIView+ConstrainVisualFormat.swift in Sources */,
 				175898A221AA0AAC00BEACAD /* UIButton+Extension.swift in Sources */,
+				1790B56421ADAA5300C66079 /* LessonCompletionEvent.swift in Sources */,
 				1790B55921AAC76A00C66079 /* CodeView.swift in Sources */,
 				1714DE2E21A5B49C00BC5891 /* NetworkingManager.swift in Sources */,
 				1714DE2C21A5B49C00BC5891 /* AppDelegate.swift in Sources */,
