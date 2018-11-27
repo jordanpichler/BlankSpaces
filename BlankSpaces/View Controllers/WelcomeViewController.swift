@@ -40,6 +40,8 @@ class WelcomeViewController: UIViewController {
         return label
     }()
     
+    // MARK: - Initialization -
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,6 +52,7 @@ class WelcomeViewController: UIViewController {
             sender.isEnabled = false
             sender.isUserInteractionEnabled = false
 
+            // Fetch data from Server
             let networker = NetworkingManager()
             networker.fetchLessons(completion: self.processFetchedLessons)
         }
@@ -70,6 +73,8 @@ class WelcomeViewController: UIViewController {
         view.addConstraintsWithFormat(format: "V:|-100-[v0]-[v1]-(>=25)-|", views: introHeader, introText)
     }
     
+    // MARK: - Helpers -
+
     func processFetchedLessons(lessons: [Lesson]) {
         // Reenable button for user
         startButton.isUserInteractionEnabled = true
@@ -84,7 +89,7 @@ class WelcomeViewController: UIViewController {
         presentLessons(lessons)
     }
     
-    func printLessons(lessons: [Lesson]) {
+    private func printLessons(lessons: [Lesson]) {
         if lessons.isEmpty { print("FML") }
         
         for l in lessons {

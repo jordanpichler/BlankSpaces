@@ -15,12 +15,13 @@ typealias CompletetionHandler = ([Lesson]) -> Void
 class NetworkingManager {
     private let url = "https://mimochallenge.azurewebsites.net/api/lessons"
     
+    /// Downloads all lessons from Server and calls completion handler with results
     func fetchLessons(completion: @escaping CompletetionHandler)  {
         Alamofire.request(url).responseData { response in
             var lessons = [Lesson]()
             if let data = response.result.value,
                 let decodedResult = self.decodeLessons(from: data) {
-                    // Convert to Lesson array
+                    // Convert raw server data to more usable Lesson array
                     decodedResult.lessons.forEach {
                         lessons.append(Lesson(rawLesson: $0))
                     }
@@ -29,6 +30,7 @@ class NetworkingManager {
         }
     }
     
+    /// Parses to the 1:1 Server Model natively
     fileprivate func decodeLessons(from data: Data) -> RawServerResponse? {
         var rawObject: RawServerResponse?
         

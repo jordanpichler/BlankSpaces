@@ -11,12 +11,14 @@ import RealmSwift
 class RealmManager {
     let realm = try! Realm()
     
+    /// Saves the given LessonCompletionEvent to the Realm DB
     func save(_ event: LessonCompletionEvent) {
         try! realm.write {
             realm.add(event)
         }
     }
     
+    /// Retrieves all stored LessonCompletionEvents stored 
     func retrieveAll() -> [LessonCompletionEvent] {
         let results = realm.objects(LessonCompletionEvent.self)
         return Array(results)

@@ -10,7 +10,7 @@ import UIKit
 
 class LessonViewController: UIViewController {
 
-    //MARK: - UI Elements -
+    // MARK: - UI Elements -
     
     let nextButton: UIButton = {
         let button = UIButton()

@@ -37,6 +37,7 @@ class LessonViewModel {
         return needsInput ? text[lesson.startIndex!..<lesson.endIndex!] : ""
     }
     
+    /// Returns the range which should be guessed by the user
     var inputRange: NSRange? {
         return needsInput ? NSRange(location: lesson.startIndex!,
                                     length: solution.count) : nil
@@ -64,6 +65,8 @@ class LessonViewModel {
         return fullText
     }
     
+    /// Checks if given String matches the entire lesson content text
+    /// - Important: The entire string of the lesson is compared, not just the solution word!
     func checkSolution(input: String) -> Bool {
         return input == text
     }

@@ -2,6 +2,8 @@
 //  CodeView.swift
 //  BlankSpaces
 //
+//  Styled UITextField to display the lessons
+//
 //  Created by Jordan Pichler on 25/11/2018.
 //  Copyright © 2018 Jordan A. Pichler. All rights reserved.
 //
@@ -12,13 +14,17 @@ protocol CodeViewDelegate {
     func textDidChange(to text: String)
 }
 
+// MARK: -
+
 class CodeView: UIView {
 
+    // MARK: - Properties -
+    
     let codeTextField = UITextField()
     var delegate: CodeViewDelegate?
     var shouldSetupConstraints = true
     
-    // MARK: - Initializers
+    // MARK: - Initialization -
     
     init() {
         super.init(frame: CGRect.zero)
@@ -41,8 +47,6 @@ class CodeView: UIView {
         super.init(coder: aDecoder)
     }
     
-    // MARK: - Constraints
-    
     override func updateConstraints() {
         if shouldSetupConstraints {
             shouldSetupConstraints = false
@@ -55,7 +59,7 @@ class CodeView: UIView {
         super.updateConstraints()
     }
     
-    // MARK: - Interface
+    // MARK: - Interface -
     
     public func setCode(text: NSAttributedString) {
         codeTextField.attributedText = text
@@ -65,6 +69,8 @@ class CodeView: UIView {
         codeTextField.resignFirstResponder()
     }
 }
+
+// MARK: -
 
 extension CodeView: UITextFieldDelegate {
     

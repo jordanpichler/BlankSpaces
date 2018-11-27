@@ -10,6 +10,8 @@ import UIKit
 
 class CompletionViewController: UIViewController {
 
+    // MARK: - UI Elements -
+
     let button: UIButton = {
         let button = UIButton()
         button.setBackgroundColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), for: .normal)
@@ -26,6 +28,8 @@ class CompletionViewController: UIViewController {
         label.numberOfLines = 0
         return label
     }()
+    
+    // MARK: -
     
     override func viewDidLoad() {
         super.viewDidLoad()
