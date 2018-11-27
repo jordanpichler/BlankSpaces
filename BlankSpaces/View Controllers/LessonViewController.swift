@@ -53,7 +53,7 @@ class LessonViewController: UIViewController {
         currentLesson = firstLesson
         
         // Next lesson on Button tap
-        nextButton.addTarget(for: .touchUpInside) {button in
+        nextButton.addTarget(for: .touchUpInside) { [unowned self] button in
             self.showNextLesson()
         }
         
@@ -95,7 +95,6 @@ class LessonViewController: UIViewController {
         nextButton.isEnabled = enabled
         nextButton.isUserInteractionEnabled = enabled
     }
-    
 }
 
 // MARK: - CodeViewDelegate

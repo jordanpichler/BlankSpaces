@@ -29,10 +29,9 @@ class CompletionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        button.addTarget(for: .touchUpInside) { _ in
+        button.addTarget(for: .touchUpInside) { [unowned self] _ in
             self.dismiss(animated: false)
             self.presentingViewController?.dismiss(animated: false)
-
         }
     }
     

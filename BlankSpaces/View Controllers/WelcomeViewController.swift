@@ -44,7 +44,7 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         
         // Set up start Button
-        startButton.addTarget(for: .touchUpInside) { sender in
+        startButton.addTarget(for: .touchUpInside) { [unowned self] sender in
             // Show loading state of button and disable from user
             sender.isSelected = false
             sender.isEnabled = false
