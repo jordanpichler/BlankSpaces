@@ -10,13 +10,13 @@
 
 import Alamofire
 
-typealias CompletetionHandler = ([Lesson]) -> Void
+typealias CompletionHandler = ([Lesson]) -> Void
 
 class NetworkingManager {
     private let url = "https://mimochallenge.azurewebsites.net/api/lessons"
     
     /// Downloads all lessons from Server and calls completion handler with results
-    func fetchLessons(completion: @escaping CompletetionHandler)  {
+    func fetchLessons(completion: @escaping CompletionHandler)  {
         Alamofire.request(url).responseData { response in
             var lessons = [Lesson]()
             if let data = response.result.value,

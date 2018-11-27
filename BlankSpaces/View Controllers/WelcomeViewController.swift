@@ -75,7 +75,7 @@ class WelcomeViewController: UIViewController {
     
     // MARK: - Helpers -
 
-    func processFetchedLessons(lessons: [Lesson]) {
+    private func processFetchedLessons(lessons: [Lesson]) {
         // Reenable button for user
         startButton.isUserInteractionEnabled = true
         startButton.isEnabled = true
@@ -89,15 +89,7 @@ class WelcomeViewController: UIViewController {
         presentLessons(lessons)
     }
     
-    private func printLessons(lessons: [Lesson]) {
-        if lessons.isEmpty { print("FML") }
-        
-        for l in lessons {
-            print("We got lesson \(l.id) here.")
-        }
-    }
-    
-    func presentLessons(_ lessons: [Lesson]) {
+    private func presentLessons(_ lessons: [Lesson]) {
         guard let lessonViewController = LessonViewController(lessons: lessons) else { return }
         present(lessonViewController, animated: true, completion: nil)
     }

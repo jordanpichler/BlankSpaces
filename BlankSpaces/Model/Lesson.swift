@@ -12,11 +12,11 @@ struct Lesson: Decodable {
     
     // MARK: - Properties -
 
-    var id: Int
-    var content: [LessonContent]
+    let id: Int
+    let content: [LessonContent]
     
-    var startIndex: Int?
-    var endIndex: Int?
+    let startIndex: Int?
+    let endIndex: Int?
     
     // MARK: - Initializers -
     
@@ -44,8 +44,8 @@ struct Lesson: Decodable {
     
     struct LessonContent: Decodable {
         
-        var color: String
-        var text: String
+        let color: String
+        let text: String
         var uicolor: UIColor {
             return UIColor(hexString: color)
         }

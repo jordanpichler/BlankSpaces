@@ -2,7 +2,7 @@
 //  LessonCompletionEvent.swift
 //  BlankSpaces
 //
-//  Model of completion event to be store in Realm DB
+//  Model of completion event to be stored in Realm DB
 //
 //  Created by Jordan Pichler on 27/11/2018.
 //  Copyright © 2018 Jordan A. Pichler. All rights reserved.

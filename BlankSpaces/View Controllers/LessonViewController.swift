@@ -27,7 +27,7 @@ class LessonViewController: UIViewController {
     
     // MARK: - Properties -
     
-    private var lessonLibrary: [LessonViewModel]!
+    private var lessonLibrary = [LessonViewModel]()
     private var currentLesson: LessonViewModel! {
         didSet {
             codeView.setCode(text: currentLesson.formatText(puzzled: true))
@@ -44,7 +44,6 @@ class LessonViewController: UIViewController {
         if lessons.isEmpty { return nil }
         
         self.init()
-        lessonLibrary = [LessonViewModel]()
         lessons.forEach { lessonLibrary.append(LessonViewModel(with: $0)) }
     }
     
