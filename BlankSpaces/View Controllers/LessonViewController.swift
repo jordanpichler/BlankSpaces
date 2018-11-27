@@ -46,7 +46,8 @@ class LessonViewController: UIViewController {
         
         // Subscribe in order to update codeView for following lessons
         currentLesson
-            .subscribe(onNext: { lesson in
+            .subscribe({ lessonEvent in
+                let lesson = lessonEvent.element!
                 self.codeView.setCode(text: lesson.formatText(puzzled: true))
             }).disposed(by: bag)
         
@@ -58,12 +59,11 @@ class LessonViewController: UIViewController {
         // Create flag checking if input is correct
         let isSolved = codeView.codeTextField.rx.textInput.text
             .map { $0 == self.currentLesson.value.text }
-             // without this map would be executed once for each binding, rx is stateless by default
         
         // Bind flag to button
         isSolved
             .bind(to: nextButton.rx.isEnabled)
-            .disposed(by: bag)
+            .disposed(by: bag) // FIXME: when lesson is completed, button should reset
         
         // Add Button
         nextButton.addTarget(for: .touchUpInside) { _ in
@@ -106,6 +106,11 @@ class LessonViewController: UIViewController {
     
     func showNextLesson() {
         lessonNumber += 1
-        currentLesson.accept(lessonLibrary[lessonNumber])
+        if lessonNumber == lessonLibrary.count {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            currentLesson.accept(lessonLibrary[lessonNumber])
+        }
+        
     }
 }

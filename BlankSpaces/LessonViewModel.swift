@@ -42,8 +42,8 @@ class LessonViewModel {
         return ""
     }
     
-    /// Returns text from content fully visible and colored.
-    func formattedText() -> NSMutableAttributedString {
+    /// Returns colored text from content
+    func formatText(puzzled: Bool) -> NSMutableAttributedString {
         let fullText = NSMutableAttributedString()
         
         // Iterate over content and append all text snippets
@@ -55,14 +55,8 @@ class LessonViewModel {
             
             fullText.append(attributedString)
         }
-        return fullText
-    }
-    
-    /// Returns text from content formated and with white boxes if input is required.
-    func puzzledText() -> NSMutableAttributedString {
-        let fullText = formattedText()
-
-        if needsInput {
+        
+        if needsInput && puzzled {
             let length = (lesson.endIndex! - lesson.startIndex!)
             let range = NSRange(location: lesson.startIndex!,
                                 length: length)
@@ -71,4 +65,5 @@ class LessonViewModel {
         
         return fullText
     }
+    
 }
