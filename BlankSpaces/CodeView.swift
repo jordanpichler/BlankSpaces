@@ -8,24 +8,40 @@
 
 import UIKit
 
+protocol CodeViewDelegate {
+    func textDidChange(to text: String)
+}
+
 class CodeView: UIView {
 
     let codeTextField = UITextField()
+    var delegate: CodeViewDelegate?
     var shouldSetupConstraints = true
     
-    // MARK: - Initializers -
+    // MARK: - Initializers
     
     init() {
         super.init(frame: CGRect.zero)
         self.backgroundColor = #colorLiteral(red: 0.3939092385, green: 0.4034299317, blue: 0.4693845178, alpha: 1)
-        codeTextField.text = "Oh my god! Look at that ⬜️⬜️⬜️⬜️!"
+        codeTextField.text = "Oh my god! Look at you!"
         codeTextField.textColor = .white
         codeTextField.font = UIFont(name: "Courier New", size: 17)
+        
+        codeTextField.returnKeyType = .done
+        codeTextField.spellCheckingType = .no
+        codeTextField.autocorrectionType = .no
+        
+        codeTextField.delegate = self
+        codeTextField.addTarget(self,
+                                action: #selector(textFieldDidChange(_:)),
+                                for: .editingChanged)
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    // MARK: - Constraints
     
     override func updateConstraints() {
         if shouldSetupConstraints {
@@ -39,9 +55,26 @@ class CodeView: UIView {
         super.updateConstraints()
     }
     
-    // MARK: - Interface -
+    // MARK: - Interface
     
     public func setCode(text: NSAttributedString) {
         codeTextField.attributedText = text
+    }
+    
+    public func hideKeyboard() {
+        codeTextField.resignFirstResponder()
+    }
+}
+
+extension CodeView: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        hideKeyboard()
+        return true
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        let text = textField.text ?? ""
+        delegate?.textDidChange(to: text)
     }
 }
