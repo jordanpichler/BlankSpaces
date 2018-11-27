@@ -33,7 +33,7 @@ class LessonViewController: UIViewController {
         guard let firstLesson = lessonLibrary.first else { return }
         
         currentLesson = firstLesson
-        codeView.setCode(text: currentLesson.puzzledText())
+        codeView.setCode(text: currentLesson.formatText(puzzled: true))
         
         if currentLesson.needsInput {
             nextButton.isSelected = true
