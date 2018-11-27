@@ -26,6 +26,7 @@ class LessonViewController: UIViewController {
     let codeView = CodeView()
     
     // MARK: - Properties -
+    
     private var lessonLibrary: [LessonViewModel]!
     private var currentLesson: LessonViewModel! {
         didSet {
@@ -34,6 +35,8 @@ class LessonViewController: UIViewController {
         }
     }
     private var lessonNumber = 0
+    private var startTime = Date()
+    private var realm = RealmManager()
     
     // MARK: - Initialization -
     
@@ -76,9 +79,12 @@ class LessonViewController: UIViewController {
     // MARK: - Helpers -
     
     func showNextLesson() {
+        saveCompletionEvent()
+        
         lessonNumber += 1
         if lessonNumber < lessonLibrary.count {
             currentLesson = lessonLibrary[lessonNumber]
+            startTime = Date()
         } else {
             let doneViewController = CompletionViewController()
             present(doneViewController, animated: false)
@@ -94,6 +100,13 @@ class LessonViewController: UIViewController {
     private func toggleButton(enabled: Bool) {
         nextButton.isEnabled = enabled
         nextButton.isUserInteractionEnabled = enabled
+    }
+    
+    func saveCompletionEvent() {
+        let lessonComplete = LessonCompletionEvent(id: currentLesson.lesson.id,
+                                                   startTime: startTime,
+                                                   endTime: Date())
+        realm.save(lessonComplete)
     }
 }
 
