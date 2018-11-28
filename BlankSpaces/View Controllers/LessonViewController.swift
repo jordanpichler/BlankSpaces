@@ -36,7 +36,7 @@ class LessonViewController: UIViewController {
     }
     private var lessonNumber = 0
     private var startTime = Date()
-    private var realm = RealmManager()
+    private let realm = RealmManager.sharedInstance
     
     // MARK: - Initialization -
     

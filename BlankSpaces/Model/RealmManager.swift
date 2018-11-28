@@ -9,7 +9,9 @@
 import RealmSwift
 
 class RealmManager {
-    let realm = try! Realm()
+    
+    static let sharedInstance = RealmManager()
+    private let realm = try! Realm()
     
     /// Saves the given LessonCompletionEvent to the Realm DB
     func save(_ event: LessonCompletionEvent) {
